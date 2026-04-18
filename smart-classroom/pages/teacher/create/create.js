@@ -87,7 +87,7 @@ Page({
   // 删除题目
   deleteQuestion(e) {
     const index = e.currentTarget.dataset.index
-    const questions = this.data.questions
+    const questions = JSON.parse(JSON.stringify(this.data.questions))
     questions.splice(index, 1)
     this.setData({
       questions: questions
@@ -98,7 +98,7 @@ Page({
   onQuestionChange(e) {
     const index = e.currentTarget.dataset.index
     const value = e.detail.value
-    const questions = this.data.questions
+    const questions = JSON.parse(JSON.stringify(this.data.questions))
     questions[index].question = value
     this.setData({
       questions: questions
@@ -110,7 +110,7 @@ Page({
     const qindex = e.currentTarget.dataset.qindex
     const oindex = e.currentTarget.dataset.oindex
     const value = e.detail.value
-    const questions = this.data.questions
+    const questions = JSON.parse(JSON.stringify(this.data.questions))
     questions[qindex].options[oindex] = value
     this.setData({
       questions: questions
@@ -121,8 +121,8 @@ Page({
   onCorrectAnswerChange(e) {
     const index = e.currentTarget.dataset.index
     const value = e.detail.value
-    const questions = this.data.questions
-    questions[index].correctAnswer = value
+    const questions = JSON.parse(JSON.stringify(this.data.questions))
+    questions[index].correctAnswer = parseInt(value)
     this.setData({
       questions: questions
     })

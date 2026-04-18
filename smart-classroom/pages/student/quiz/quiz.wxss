@@ -232,11 +232,23 @@
 .result-option.correct {
   background-color: #E8F5E9;
   color: #4CAF50;
+  border: 2px solid #4CAF50;
+}
+
+.result-option.correct .option-label {
+  background-color: #4CAF50;
+  color: white;
 }
 
 .result-option.wrong {
   background-color: #FFEBEE;
   color: #F44336;
+  border: 2px solid #F44336;
+}
+
+.result-option.wrong .option-label {
+  background-color: #F44336;
+  color: white;
 }
 
 .option-status {

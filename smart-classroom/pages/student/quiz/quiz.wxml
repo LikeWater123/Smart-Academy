@@ -46,12 +46,12 @@
         </view>
         <text class="result-text">{{item.question}}</text>
         <view class="result-options">
-          <view wx:for="{{item.options}}" wx:key="optionIndex" 
+          <view wx:for="{{item.options}}" wx:for-item="option" wx:for-index="optionIndex" wx:key="optionIndex" 
                 class="result-option {{optionIndex === item.correctAnswer ? 'correct' : (optionIndex === answers[index] ? 'wrong' : '')}}">
             <text class="option-label">{{['A', 'B', 'C', 'D'][optionIndex]}}</text>
-            <text class="option-text">{{item}}</text>
-            <text class="option-status" wx:if="optionIndex === item.correctAnswer">✓ 正确答案</text>
-            <text class="option-status" wx:elif="optionIndex === answers[index]">✗ 你的答案</text>
+            <text class="option-text">{{option}}</text>
+            <text class="option-status" wx:if="{{optionIndex === item.correctAnswer}}">✓ 正确答案</text>
+            <text class="option-status" wx:elif="{{optionIndex === answers[index]}}">✗ 你的答案</text>
           </view>
         </view>
       </view>

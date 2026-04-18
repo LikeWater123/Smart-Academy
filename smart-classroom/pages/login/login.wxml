@@ -5,13 +5,11 @@
   </view>
   
   <view class="login-form">
-    <!-- 微信授权登录按钮 -->
     <button class="wechat-login-btn" bindtap="loginWithWechat">
-      <image class="wechat-icon" src="/images/wechat-icon.png"></image>
+      <text class="wechat-icon">💬</text>
       <text>微信授权登录</text>
     </button>
     
-    <!-- 角色选择 -->
     <view class="role-selector" wx:if="{{showRoleSelector}}">
       <text class="role-title">请选择您的角色</text>
       <view class="role-cards">
