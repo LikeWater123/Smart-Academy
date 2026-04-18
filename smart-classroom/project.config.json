@@ -82,5 +82,7 @@
     "miniprogram": {
       "list": []
     }
-  }
+  },
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "cloudfunctionRoot": "cloudfunctions/"
 }
