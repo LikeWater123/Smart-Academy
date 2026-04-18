@@ -11,13 +11,13 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#1976D2",
+    "navigationBarBackgroundColor": "#1a365d",
     "navigationBarTitleText": "智慧学堂",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "color": "#666666",
-    "selectedColor": "#1976D2",
+    "color": "#718096",
+    "selectedColor": "#1a365d",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
