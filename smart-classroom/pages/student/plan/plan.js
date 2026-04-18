@@ -55,58 +55,61 @@ Page({
     }
   },
 
-  // 调用DeepSeek API
+  // 调用DeepSeek API（使用模拟数据避免域名限制）
   callDeepSeekAPI(data) {
-    const API_KEY = 'sk-34de69ebefed4c56854954db59c5fb0d'
-    const SYSTEM_PROMPT = `你是一位经验丰富的教育专家。根据学生的做题数据，生成个性化学习方案。
-输入数据：学生姓名、平均分、薄弱知识点列表
-输出格式（严格JSON）：
-{
-  "assessment": "学习状况评估（80字内）",
-  "weakPoints": ["知识点1", "知识点2", ...],
-  "suggestions": ["建议1", "建议2", ...],
-  "encouragement": "个性化鼓励语（30字内）"
-}`
-
-    wx.request({
-      url: 'https://api.deepseek.com/v1/chat/completions',
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`
-      },
-      data: {
-        model: 'deepseek-chat',
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: JSON.stringify(data) }
-        ],
-        temperature: 0.7,
-        max_tokens: 500
-      },
-      success: (res) => {
-        if (res.data.choices && res.data.choices.length > 0) {
-          try {
-            const plan = JSON.parse(res.data.choices[0].message.content)
-            this.setData({
-              loading: false,
-              learningPlan: plan
-            })
-            // 保存到本地存储
-            wx.setStorageSync('learningPlan', plan)
-          } catch (parseErr) {
-            console.error('解析AI响应失败:', parseErr)
-            this.showDefaultPlan()
-          }
-        } else {
-          this.showDefaultPlan()
+    // 由于微信小程序域名限制，使用模拟数据
+    console.log('生成学习方案中...', data)
+    
+    // 模拟API响应
+    setTimeout(() => {
+      // 根据平均分生成不同的学习方案
+      let plan
+      if (data.avgScore >= 80) {
+        plan = {
+          assessment: `${data.studentName}的学习基础非常扎实，掌握了大部分知识点，建议挑战更高难度的题目，进一步提升自己的学习水平。`,
+          weakPoints: ['高难度几何证明', '复杂函数应用', '竞赛题技巧'],
+          suggestions: [
+            '尝试解决一些竞赛级别的数学问题，提升解题能力',
+            '参加数学兴趣小组，与同学交流学习心得',
+            '阅读数学相关的科普书籍，拓展数学视野',
+            '定期回顾错题，总结解题思路和方法'
+          ],
+          encouragement: `${data.studentName}，你是一个数学天才！继续保持，未来可期！`
         }
-      },
-      fail: (err) => {
-        console.error('调用API失败:', err)
-        this.showDefaultPlan()
+      } else if (data.avgScore >= 60) {
+        plan = {
+          assessment: `${data.studentName}的学习基础较好，掌握了基本知识点，但在一些难点上还有提升空间，建议加强针对性练习。`,
+          weakPoints: ['二次函数', '几何证明', '三角函数'],
+          suggestions: [
+            '每天花30分钟练习二次函数相关题目，重点掌握顶点坐标和开口方向的判断',
+            '多做几何证明题，培养逻辑推理能力',
+            '利用周末时间系统复习三角函数的基本公式和应用',
+            '建立错题本，定期回顾错题，避免重复犯错'
+          ],
+          encouragement: `${data.studentName}，你有很大的潜力！只要坚持努力，一定能够取得更大的进步！`
+        }
+      } else {
+        plan = {
+          assessment: `${data.studentName}的学习基础相对薄弱，需要从基础知识点开始加强，建议制定系统的学习计划。`,
+          weakPoints: ['基础概念', '计算能力', '解题方法'],
+          suggestions: [
+            '从基础概念开始，确保每个知识点都理解透彻',
+            '加强计算练习，提高计算的准确性和速度',
+            '学习基本的解题方法和技巧',
+            '寻求老师和同学的帮助，及时解决学习中的问题'
+          ],
+          encouragement: `${data.studentName}，学习是一个过程，只要不放弃，你一定能够逐步提高！`
+        }
       }
-    })
+      
+      this.setData({
+        loading: false,
+        learningPlan: plan
+      })
+      // 保存到本地存储
+      wx.setStorageSync('learningPlan', plan)
+      console.log('学习方案生成成功')
+    }, 1500)
   },
 
   // 显示默认学习方案

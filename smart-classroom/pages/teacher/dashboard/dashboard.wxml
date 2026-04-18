@@ -25,7 +25,7 @@
   <view class="weak-points-card">
     <text class="card-title">薄弱知识点 TOP5</text>
     <view class="chart-container">
-      <canvas canvas-id="weakPointsChart"></canvas>
+      <canvas type="2d" id="weakPointsChart"></canvas>
     </view>
   </view>
   
