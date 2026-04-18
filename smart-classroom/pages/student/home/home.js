@@ -19,59 +19,42 @@ Page({
 
   // 获取作业列表
   getAssignments() {
-    // 模拟数据
-    this.setData({
-      pendingAssignments: [
-        {
-          _id: '1',
-          title: '二次函数基础',
-          subject: '数学',
-          questions: [{}, {}, {}, {}, {}],
-          createdAt: new Date()
-        },
-        {
-          _id: '2',
-          title: '一元二次方程',
-          subject: '数学',
-          questions: [{}, {}, {}, {}, {}, {}],
-          createdAt: new Date(Date.now() - 86400000)
+    try {
+      // 从本地存储获取作业
+      const assignments = wx.getStorageSync('assignments') || []
+      // 从本地存储获取已完成的作业结果
+      const quizResults = wx.getStorageSync('quizResults') || []
+      
+      // 分离待做和已完成的作业
+      const pendingAssignments = assignments.filter(assignment => {
+        // 检查是否有对应的完成记录
+        return !quizResults.some(result => result.assignmentId === assignment._id)
+      })
+      
+      const completedAssignments = quizResults.map(result => {
+        // 找到对应的作业信息
+        const assignment = assignments.find(a => a._id === result.assignmentId)
+        if (assignment) {
+          return {
+            ...assignment,
+            score: result.score,
+            completedAt: result.completedAt
+          }
         }
-      ],
-      completedAssignments: [
-        {
-          _id: '3',
-          title: '几何证明初步',
-          subject: '数学',
-          questions: [{}, {}, {}, {}, {}],
-          score: 85,
-          createdAt: new Date(Date.now() - 172800000)
-        }
-      ]
-    })
-    
-    // 后续可以通过云函数获取真实数据
-    // wx.cloud.callFunction({
-    //   name: 'assignment',
-    //   data: {
-    //     action: 'read',
-    //     studentId: app.globalData.userInfo.openid
-    //   },
-    //   success: (res) => {
-    //     const assignments = res.result.data || []
-    //     const pending = assignments.filter(a => !a.completed)
-    //     const completed = assignments.filter(a => a.completed)
-    //     this.setData({
-    //       pendingAssignments: pending,
-    //       completedAssignments: completed
-    //     })
-    //   },
-    //   fail: (err) => {
-    //     wx.showToast({
-    //       title: '获取作业失败',
-    //       icon: 'none'
-    //     })
-    //   }
-    // })
+        return null
+      }).filter(Boolean)
+      
+      this.setData({
+        pendingAssignments: pendingAssignments,
+        completedAssignments: completedAssignments
+      })
+    } catch (err) {
+      console.error('获取作业失败:', err)
+      wx.showToast({
+        title: '获取作业失败',
+        icon: 'none'
+      })
+    }
   },
 
   // 开始做题

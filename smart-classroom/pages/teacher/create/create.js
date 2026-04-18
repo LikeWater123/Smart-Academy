@@ -28,32 +28,33 @@ Page({
 
   // 获取作业详情
   getAssignmentDetail(id) {
-    wx.cloud.callFunction({
-      name: 'assignment',
-      data: {
-        action: 'read',
-        id: id
-      },
-      success: (res) => {
-        const assignment = res.result.data
-        if (assignment) {
-          this.setData({
-            assignment: {
-              title: assignment.title,
-              subject: assignment.subject
-            },
-            subjectIndex: this.data.subjects.indexOf(assignment.subject),
-            questions: assignment.questions
-          })
-        }
-      },
-      fail: (err) => {
+    try {
+      // 从本地存储获取作业
+      const assignments = wx.getStorageSync('assignments') || []
+      const assignment = assignments.find(item => item._id === id)
+      
+      if (assignment) {
+        this.setData({
+          assignment: {
+            title: assignment.title,
+            subject: assignment.subject
+          },
+          subjectIndex: this.data.subjects.indexOf(assignment.subject),
+          questions: assignment.questions
+        })
+      } else {
         wx.showToast({
-          title: '获取作业详情失败',
+          title: '作业不存在',
           icon: 'none'
         })
       }
-    })
+    } catch (err) {
+      console.error('获取作业详情失败:', err)
+      wx.showToast({
+        title: '获取作业详情失败',
+        icon: 'none'
+      })
+    }
   },
 
   // 作业标题变化
@@ -158,37 +159,45 @@ Page({
       }
     }
     
-    const action = isEdit ? 'update' : 'create'
-    const data = {
-      action,
-      assignment: {
+    // 使用本地存储代替云函数
+    try {
+      // 获取现有作业
+      const existingAssignments = wx.getStorageSync('assignments') || []
+      
+      const assignmentData = {
         ...assignment,
-        questions
+        questions,
+        _id: assignmentId || 'assignment_' + Date.now(),
+        createdAt: new Date().toISOString()
       }
-    }
-    
-    if (isEdit) {
-      data.id = assignmentId
-    }
-    
-    wx.cloud.callFunction({
-      name: 'assignment',
-      data: data,
-      success: (res) => {
-        wx.showToast({
-          title: isEdit ? '作业更新成功' : '作业发布成功',
-          icon: 'success'
-        })
-        setTimeout(() => {
-          wx.navigateBack()
-        }, 1500)
-      },
-      fail: (err) => {
-        wx.showToast({
-          title: isEdit ? '作业更新失败' : '作业发布失败',
-          icon: 'none'
-        })
+      
+      let updatedAssignments
+      if (isEdit) {
+        // 更新现有作业
+        updatedAssignments = existingAssignments.map(item => 
+          item._id === assignmentId ? assignmentData : item
+        )
+      } else {
+        // 添加新作业
+        updatedAssignments = [...existingAssignments, assignmentData]
       }
-    })
+      
+      // 保存到本地存储
+      wx.setStorageSync('assignments', updatedAssignments)
+      
+      wx.showToast({
+        title: isEdit ? '作业更新成功' : '作业发布成功',
+        icon: 'success'
+      })
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 1500)
+    } catch (err) {
+      console.error('保存作业失败:', err)
+      wx.showToast({
+        title: isEdit ? '作业更新失败' : '作业发布失败',
+        icon: 'none'
+      })
+    }
   }
 })

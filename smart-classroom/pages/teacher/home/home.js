@@ -18,23 +18,19 @@ Page({
 
   // 获取作业列表
   getAssignments() {
-    wx.cloud.callFunction({
-      name: 'assignment',
-      data: {
-        action: 'read'
-      },
-      success: (res) => {
-        this.setData({
-          assignments: res.result.data || []
-        })
-      },
-      fail: (err) => {
-        wx.showToast({
-          title: '获取作业失败',
-          icon: 'none'
-        })
-      }
-    })
+    try {
+      // 从本地存储获取作业
+      const assignments = wx.getStorageSync('assignments') || []
+      this.setData({
+        assignments: assignments
+      })
+    } catch (err) {
+      console.error('获取作业失败:', err)
+      wx.showToast({
+        title: '获取作业失败',
+        icon: 'none'
+      })
+    }
   },
 
   // 导航到发布作业页面
