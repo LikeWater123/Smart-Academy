@@ -9,9 +9,10 @@
     "pages/student/plan/plan",
     "pages/student/reminder/reminder"
   ],
+  "lazyCodeLoading": "requiredComponents",
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#1a365d",
+    "navigationBarBackgroundColor": "#1976D2",
     "navigationBarTitleText": "智慧学堂",
     "navigationBarTextStyle": "white"
   },
