@@ -24,33 +24,23 @@
     "list": [
       {
         "pagePath": "pages/teacher/home/home",
-        "text": "作业管理",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "text": "作业管理"
       },
       {
         "pagePath": "pages/teacher/dashboard/dashboard",
-        "text": "数据看板",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "text": "数据看板"
       },
       {
         "pagePath": "pages/student/home/home",
-        "text": "作业",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "text": "作业"
       },
       {
         "pagePath": "pages/student/plan/plan",
-        "text": "学习方案",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "text": "学习方案"
       },
       {
         "pagePath": "pages/student/reminder/reminder",
-        "text": "学习提醒",
-        "iconPath": "",
-        "selectedIconPath": ""
+        "text": "学习提醒"
       }
     ]
   },
