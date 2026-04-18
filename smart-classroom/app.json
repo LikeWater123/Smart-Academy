@@ -44,15 +44,6 @@
       }
     ]
   },
-  "usingComponents": {
-    "van-button": "miniprogram_npm/@vant/weapp/button/index",
-    "van-field": "miniprogram_npm/@vant/weapp/field/index",
-    "van-picker": "miniprogram_npm/@vant/weapp/picker/index",
-    "van-card": "miniprogram_npm/@vant/weapp/card/index",
-    "van-cell": "miniprogram_npm/@vant/weapp/cell/index",
-    "van-cell-group": "miniprogram_npm/@vant/weapp/cell-group/index",
-    "van-toast": "miniprogram_npm/@vant/weapp/toast/index",
-    "van-loading": "miniprogram_npm/@vant/weapp/loading/index"
-  },
+
   "sitemapLocation": "sitemap.json"
 }
