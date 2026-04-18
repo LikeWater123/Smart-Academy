@@ -1,6 +1,6 @@
 <view class="home-container">
   <view class="header">
-    <text class="welcome">欢迎，{{userInfo?.nickName}}</text>
+    <text class="welcome">欢迎，{{userInfo ? userInfo.nickName : ''}}</text>
     <text class="subtitle">作业管理</text>
   </view>
   
