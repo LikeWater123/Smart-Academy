@@ -30,32 +30,30 @@
 ### 场景 4：家校协同育人
 家长可以通过小程序了解孩子的学习情况和身心健康状态，与教师共同关注孩子的成长。
 
-## 云函数部署参考
-云函数部署参考文档：[微信小程序云函数开发指南](https://developers.weixin.qq.com/miniprogram/dev/wxcloudservice/wxcloud/guide/functions/getting-started.html)
-
 ## 项目结构
-- `cloudfunctions/` - 云函数目录
-  - `ai-service/` - AI 服务云函数
-  - `assignment/` - 作业管理云函数
-  - `login/` - 登录云函数
-  - `quiz/` - 测验云函数
-- `miniprogram_npm/` - 小程序依赖包
-- `pages/` - 页面目录
-  - `login/` - 登录页面
-  - `teacher/home/` - 教师首页
-  - `teacher/create/` - 创建作业页面
-  - `teacher/dashboard/` - 数据看板页面
-  - `student/home/` - 学生首页
-  - `student/quiz/` - 测验页面
-  - `student/plan/` - 学习方案页面
-  - `student/reminder/` - 提醒页面
-- `app.js` - 小程序入口文件
-- `app.json` - 小程序配置文件
-- `app.wxss` - 全局样式文件
-- `project.config.json` - 项目配置文件
+- `smart-classroom/` - 智慧学堂微信小程序
+  - `cloudfunctions/` - 云函数目录
+    - `ai-service/` - AI 服务云函数
+    - `assignment/` - 作业管理云函数
+    - `login/` - 登录云函数
+    - `quiz/` - 测验云函数
+  - `miniprogram_npm/` - 小程序依赖包
+  - `pages/` - 页面目录
+    - `login/` - 登录页面
+    - `teacher/home/` - 教师首页
+    - `teacher/create/` - 创建作业页面
+    - `teacher/dashboard/` - 数据看板页面
+    - `student/home/` - 学生首页
+    - `student/quiz/` - 测验页面
+    - `student/plan/` - 学习方案页面
+    - `student/reminder/` - 提醒页面
+  - `app.js` - 小程序入口文件
+  - `app.json` - 小程序配置文件
+  - `app.wxss` - 全局样式文件
+  - `project.config.json` - 项目配置文件
 
 ## 开发说明
-1. 使用微信开发者工具打开项目
+1. 使用微信开发者工具打开 smart-classroom 目录
 2. 在云开发控制台中创建对应的云函数
 3. 上传云函数到云端
 4. 在本地进行调试
